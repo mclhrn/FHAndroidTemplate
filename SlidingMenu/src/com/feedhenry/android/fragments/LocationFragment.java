@@ -47,7 +47,9 @@ public class LocationFragment extends Fragment implements OnClickListener {
 
 	/**
 	 * 
-	 * TODO save UI state on orientation change (onPause)
+	 * TODO save UI state on orientation change
+	 * 
+	 * TODO Check for GPS and launch settings if switched off
 	 * 
 	 * **/
 
@@ -162,8 +164,8 @@ public class LocationFragment extends Fragment implements OnClickListener {
 		 * TODO No error handling here for bad json data
 		 */
 
-		org.json.fh.JSONArray array = json.getJSONArray("data");
-		JSONObject obj = array.getJSONObject(0);
+		JSONObject obj = json.getJSONArray("data").getJSONObject(0);
+//		JSONObject obj = array.getJSONObject(0);
 
 		// get weather icon from returned URL
 		ll.setVisibility(View.VISIBLE);

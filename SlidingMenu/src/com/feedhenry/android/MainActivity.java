@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		drawerSetUp();
+		setUpDrawer();
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
 			displayView(0);
@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements
 	}
 
 	@SuppressLint("NewApi")
-	private void drawerSetUp() {
+	private void setUpDrawer() {
 		mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
@@ -98,15 +98,15 @@ public class MainActivity extends Activity implements
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
 				.getResourceId(0, -1)));
-		// Find People
+		// Call Cloud
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
 				.getResourceId(1, -1)));
-		// Photos
+		// Push notifications (with a counter example)
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-				.getResourceId(2, -1)));
-		// Communities, Will add a counter here
+				.getResourceId(2, -1), true, "22"));
+		// Location 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
-				.getResourceId(3, -1)/* , true, "22" */));
+				.getResourceId(3, -1)));
 		// Pages
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
 				.getResourceId(4, -1)));
@@ -151,8 +151,7 @@ public class MainActivity extends Activity implements
 	/**
 	 * Slide menu item click listener
 	 * */
-	private class SlideMenuClickListener implements
-			ListView.OnItemClickListener {
+	private class SlideMenuClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
@@ -215,9 +214,6 @@ public class MainActivity extends Activity implements
 		case 4:
 			fragment = new DataBrowserFragment();
 			break;
-//		case 5:
-//			fragment = new PushNotificationsFragment();
-//			break;
 		default:
 			break;
 		}
@@ -264,7 +260,7 @@ public class MainActivity extends Activity implements
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	// Implementation of HomeFragment button listener interface
+	// Implementation of HomeFragment button listener
 	@Override
 	public void onOptionSelected(int selection) {
 

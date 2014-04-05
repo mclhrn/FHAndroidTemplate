@@ -8,4 +8,6 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="home_title_background">#3d3c3a</color>
     <color name="home_buttons_background">#1c54b8</color>
+    <color name="rect_button_bg">#1b53c0</color>
+    
 </resources>

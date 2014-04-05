@@ -19,6 +19,7 @@ import android.widget.Button;
 
 public class HomeFragment extends Fragment implements OnClickListener {
 
+	// TODO Set state selector for buttons
 	
 	OnOptionSelectedListener mCallback;
 	private View rootView;
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 
 	
 	private void initUI() {
+		
 		// TODO Possible Memory Issues Here creating new instances of font
 		Typeface font = Typeface.createFromAsset(getActivity()
 				.getApplicationContext().getAssets(),

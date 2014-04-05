@@ -19,7 +19,7 @@ public class FHAgent {
 
     
     public void cloudCall(FHActCallback fhActCallback){
-        JSONObject param=new JSONObject("{}");
+        JSONObject param = new JSONObject("{}");
         this.call("hello", param, fhActCallback);
     }
     
