@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FeedHenry</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Call Cloud</item>
+        <item>Push Notifications</item>
+        <item>Location</item>
+        <item>Data Browser</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in same order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="home">Home</string>
+    <string name="call_cloud">Call Cloud</string>
+    <string name="location">Location</string>
+    <string name="stats">FeedHenry Stats</string>
+    <string name="data_browser">Data Browser</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="home_title">Welcome to\nFeedHenry</string>
+    <string name="home_subtitle">Learn about and interact with\nour platform</string>
+    <string name="land_home_title">Welcome to FeedHenry</string>
+    <string name="land_home_subtitle">Learn about and interact with our platform</string>
+    <string name="cloud_action_title">Cloud\nAction</string>
+    <string name="cloud_action_subtitle">Try it now</string>
+    <string name="example_title">Example</string>
+    <string name="example_subtitle">Location/Weather\nexample</string>
+    <string name="data_browser_title">Data Browser</string>
+    <string name="data_browser_subtitle">Use Mongo DB</string>
+    <string name="push_notification_title">Push\nNotifications</string>
+    <string name="push_notification_subtitle">Try it now</string>
+    <string name="cloud_logo">&#xf0c2;</string>
+    <string name="data_browser_logo">&#xf0ce;</string>
+    <string name="example_logo">&#xf185;</string>
+    <string name="push_logo">&#xf0ed;</string>
+    
+    <string name="cloud_action">Cloud Action</string>
+    <string name="cloud_action_body_text">This client app is now connected to its matching Node.js cloud code on FeedHenry. Tap the button to request a response from the cloud.</string>
+    <string name="cloud_action_btn">&#xf14c; Call Cloud</string>
+    <string name="cloud_action_response_title">Response: Hello from feedhenry</string>
+    <string name="cloud_action_response_subtitle">Now check your stats page in the studio to check that this cloud call happened.</string>
+    
+    <string name="data_browser_body_text">Enter your name and tap the button to save your name in our cloud database.</string>
+    <string name="data_browser_btn">&#xf0c7; Save</string>
+    <string name="data_browser_success">Success: Name stored in Mongo DB</string>
+    <string name="data_browser_fail">Fail: Name not stored</string>
+    
+    <string name="location_title">Location Example</string>
+    <string name="location_body_text">Let\'s grab your location and do something with it. Tap the button to find your location.</string>
+    <string name="location_btn">&#xf124; Get My Location</string>   
+    <string name="location_success">Now we are going to use that location to request weather information from an online web-service via our cloud code. Tap the button to do this.</string>
+    <string name="weather_btn">&#xf0ac; Get My Weather Info</string>
+    
+</resources>
