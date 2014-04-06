@@ -8,6 +8,7 @@ import com.feedhenry.android.drawer.model.NavDrawerItem;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
 	
 	private Context context;
 	private ArrayList<NavDrawerItem> navDrawerItems;
+	private Typeface tf;
 	
-	public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
+	public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems, String font){
 		this.context = context;
 		this.navDrawerItems = navDrawerItems;
+		tf = Typeface.createFromAsset(context.getAssets(), font);
 	}
 
 	@Override
@@ -48,12 +51,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.list_item_drawer, null);
         }
          
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         TextView txtCount = (TextView) convertView.findViewById(R.id.counter);
-         
-        imgIcon.setImageResource(navDrawerItems.get(position).getIcon());        
+
+        txtTitle.setTypeface(tf);
         txtTitle.setText(navDrawerItems.get(position).getTitle());
+
         
         // displaying count
         // check whether it set visible or not

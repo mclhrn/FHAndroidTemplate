@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import com.feedhenry.android.R;
 
 public class StatsFragment extends Fragment {
-	
-	public StatsFragment(){}
-	
+		
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

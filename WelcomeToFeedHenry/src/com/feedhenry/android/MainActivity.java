@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -22,10 +23,13 @@ import android.widget.ListView;
 import com.feedhenry.android.drawer.adapter.NavDrawerListAdapter;
 import com.feedhenry.android.drawer.model.NavDrawerItem;
 import com.feedhenry.android.fragments.CallCloudFragment;
+import com.feedhenry.android.fragments.CloudIntegrationsFragment;
 import com.feedhenry.android.fragments.DataBrowserFragment;
 import com.feedhenry.android.fragments.HomeFragment;
 import com.feedhenry.android.fragments.LocationFragment;
+import com.feedhenry.android.fragments.NativeAppInfoFragment;
 import com.feedhenry.android.fragments.PushNotificationsFragment;
+import com.feedhenry.android.fragments.StatsFragment;
 
 public class MainActivity extends Activity implements
 		HomeFragment.OnOptionSelectedListener {
@@ -42,12 +46,11 @@ public class MainActivity extends Activity implements
 
 	// drawer menu items
 	private String[] navMenuTitles;
-	private TypedArray navMenuIcons;
 
-	// 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,10 +86,6 @@ public class MainActivity extends Activity implements
 		// load slide menu items
 		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
-		// nav drawer icons from resources
-		navMenuIcons = getResources()
-				.obtainTypedArray(R.array.nav_drawer_icons);
-
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
@@ -94,30 +93,27 @@ public class MainActivity extends Activity implements
 
 		// adding nav drawer items to array
 		// Home
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons
-				.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
 		// Call Cloud
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
-				.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1]));
 		// Push notifications (with a counter example)
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
-				.getResourceId(2, -1), true, "22"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], true, "22"));
 		// Location 
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
-				.getResourceId(3, -1)));
-		// Pages
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
-				.getResourceId(4, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3]));
+		// Data Browser
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4]));
+		// App Info
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5]));
+		// Cloud Integrations
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6]));
+		// Stats
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7]));
 		
-
-		// Recycle the typed array
-		navMenuIcons.recycle();
-
 		mDrawerList.setOnItemClickListener(new DrawerClickListener());
 
 		// setting the nav drawer list adapter
 		adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
+				navDrawerItems, "fonts/fontawesome-webfont.ttf");
 		mDrawerList.setAdapter(adapter);
 
 		// enabling action bar app icon and behaving it as toggle button
@@ -189,7 +185,7 @@ public class MainActivity extends Activity implements
 	}
 
 	/**
-	 * Diplaying fragment view for selected nav drawer list item
+	 * Displaying fragment view for selected nav drawer list item
 	 * */
 	private void displayView(int position) {
 		// update the main content by replacing fragments
@@ -209,6 +205,15 @@ public class MainActivity extends Activity implements
 			break;
 		case 4:
 			fragment = new DataBrowserFragment();
+			break;
+		case 5:
+			fragment = new NativeAppInfoFragment();
+			break;
+		case 6:
+			fragment = new CloudIntegrationsFragment();
+			break;
+		case 7:
+			fragment = new StatsFragment();
 			break;
 		default:
 			break;
