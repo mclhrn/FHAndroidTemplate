@@ -1,13 +1,12 @@
 package com.feedhenry.android.fragments;
 
-import com.feedhenry.android.R;
-import com.feedhenry.android.R.layout;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.feedhenry.android.R;
 
 public class PushNotificationsFragment extends Fragment {
 

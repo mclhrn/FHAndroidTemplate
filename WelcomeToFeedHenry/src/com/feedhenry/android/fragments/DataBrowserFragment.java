@@ -1,3 +1,4 @@
+
 package com.feedhenry.android.fragments;
 
 import android.app.Fragment;
@@ -10,12 +11,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.feedhenry.android.R;
-import com.feedhenry.android.R.id;
-import com.feedhenry.android.R.layout;
 import com.feedhenry.android.server.FHAgent;
 import com.feedhenry.android.utilities.KeyboardToggle;
 import com.feedhenry.sdk.FHActCallback;
@@ -63,6 +61,8 @@ public class DataBrowserFragment extends Fragment implements OnClickListener {
 	public void onClick(View view) {
 		if (view.getId() == R.id.data_browser_btn) {
 			if (validateFields()) {
+				
+				// Use FH Agent to store value in cloud DB
 				FHAgent fhAgent = new FHAgent();
 		        fhAgent.dataBrowser(et.getText().toString(), new FHActCallback() {
 		            @Override
@@ -77,12 +77,14 @@ public class DataBrowserFragment extends Fragment implements OnClickListener {
 		        		Log.i("FEEDHENRY", "Data Browser Failed!");
 		            }
 		        });
+		        
+		        // Utility method to hide the keyboard
 		        KeyboardToggle.hideTheKeyboard(getActivity(), et);
 			}
 		}
 	}
 
-	
+	// Set Edit Text validation rules
 	private boolean validateFields() {
 		if (et.getText().toString().length() == 0) {
 			et.setError("Name is required!");

@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import org.json.fh.JSONObject;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -37,21 +38,20 @@ public class LocationFragment extends Fragment implements OnClickListener {
 
 	private View rootView;
 	private EditText et;
-	private TextView locationSuccess;
-	private Button location, weather;
+	private TextView locationSuccess, weatherDate, weatherTemp, weatherDesc;
+	private String mDate, mTemp, mDesc;
+	private Button locationBtn, weatherBtn;
+	private Bitmap weatherBitmap;
 	private LinearLayout ll;
 	private ImageView iv;
 	private double lat;
 	private double lng;
 	private boolean showLocation = false;
+	private ProgressDialog dialog;
 
 	/**
-	 * 
-	 * TODO save UI state on orientation change
-	 * 
 	 * TODO Check for GPS and launch settings if switched off
-	 * 
-	 * **/
+	 **/
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,25 +59,40 @@ public class LocationFragment extends Fragment implements OnClickListener {
 		rootView = inflater.inflate(R.layout.fragment_location, container,
 				false);
 		initUI();
+
+		// Set state for orientation change
 		if (savedInstanceState != null) {
 			lat = savedInstanceState.getDouble("lat");
 			lng = savedInstanceState.getDouble("lng");
 			showLocation = savedInstanceState.getBoolean("showLocation");
 			if (showLocation) {
 				locationSuccess.setVisibility(View.VISIBLE);
-				weather.setVisibility(View.VISIBLE);
+				weatherBtn.setVisibility(View.VISIBLE);
 				ll.setVisibility(View.VISIBLE);
+				mDate = savedInstanceState.getString("date");
+				mTemp = savedInstanceState.getString("temp");
+				mDesc = savedInstanceState.getString("desc");
+				weatherBitmap = savedInstanceState.getParcelable("image");
+				weatherDate.setText(mDate);
+				weatherTemp.setText(mTemp);
+				weatherDesc.setText(mDesc);
+				iv.setImageBitmap(weatherBitmap);
 			}
 		}
 		return rootView;
 	}
 
+	// Save state for orientation change
 	@Override
 	public void onSaveInstanceState(Bundle savedState) {
 		super.onSaveInstanceState(savedState);
 		savedState.putDouble("lat", lat);
 		savedState.putDouble("lng", lng);
 		savedState.putBoolean("showLocation", showLocation);
+		savedState.putParcelable("image", weatherBitmap);
+		savedState.putString("date", mDate);
+		savedState.putString("temp", mTemp);
+		savedState.putString("desc", mDesc);
 	}
 
 	private void initUI() {
@@ -85,24 +100,39 @@ public class LocationFragment extends Fragment implements OnClickListener {
 				.getApplicationContext().getAssets(),
 				"fonts/fontawesome-webfont.ttf");
 
-		location = (Button) rootView.findViewById(R.id.location_btn);
-		location.setTypeface(font);
-		location.setOnClickListener(this);
-		weather = (Button) rootView.findViewById(R.id.weather_btn);
-		weather.setTypeface(font);
-		weather.setOnClickListener(this);
-		weather.setVisibility(View.GONE);
-
+		// Set handles to UI objects
+		et = (EditText) rootView.findViewById(R.id.coords);
+		locationBtn = (Button) rootView.findViewById(R.id.location_btn);
 		locationSuccess = (TextView) rootView
 				.findViewById(R.id.location_success);
-		locationSuccess.setVisibility(View.GONE);
-
+		weatherBtn = (Button) rootView.findViewById(R.id.weather_btn);
 		ll = (LinearLayout) rootView.findViewById(R.id.weather_block);
-		ll.setVisibility(View.GONE);
+		weatherDate = (TextView) rootView.findViewById(R.id.weather_date);
+		weatherTemp = (TextView) rootView.findViewById(R.id.weather_temp);
+		weatherDesc = (TextView) rootView.findViewById(R.id.weather_desc);
+		iv = (ImageView) rootView.findViewById(R.id.weather_icon);
 
-		et = (EditText) rootView.findViewById(R.id.coords);
+		// Set fonts on buttons
+		locationBtn.setTypeface(font);
+		weatherBtn.setTypeface(font);
+
+		// Set click listeners
+		locationBtn.setOnClickListener(this);
+		weatherBtn.setOnClickListener(this);
+
+		// Set initial visibility
+		weatherBtn.setVisibility(View.GONE);
+		locationSuccess.setVisibility(View.GONE);
+		ll.setVisibility(View.GONE);
 	}
-	
+
+	private void setDialog() {
+		dialog = new ProgressDialog(this.getActivity());
+		dialog.setIndeterminate(true);
+		dialog.setCancelable(false);
+		dialog.setMessage("Loading...");
+		dialog.show();
+	}
 
 	@Override
 	public void onClick(View view) {
@@ -116,38 +146,58 @@ public class LocationFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	
 	private void getWeather() {
+
+		// Display loading dialog
+		if (dialog == null) {
+			setDialog();
+		} else {
+			dialog.show();
+		}
+
+		// Weather FH call
 		FHAgent fhAgent = new FHAgent();
 		fhAgent.getWeather(lat, lng, new FHActCallback() {
 			@Override
 			public void success(FHResponse fhResponse) {
+				dialog.dismiss();
 				parseWeather(fhResponse.getJson());
 				Log.i("FEEDHENRY",
 						"Weather Success!" + fhResponse.getRawResponse());
 			}
+
 			@Override
 			public void fail(FHResponse fhResponse) {
+				dialog.dismiss();
 				Log.i("FEEDHENRY", "Weather Failed!");
 			}
 		});
 	}
 
-	
 	private void getLocation() {
+
+		// Display loading dialog
+		if (dialog == null) {
+			setDialog();
+		} else {
+			dialog.show();
+		}
+		
 		LocationResult locationResult = new LocationResult() {
 			@Override
 			public void gotLocation(Location location) {
 				try {
 					if (null != location) {
+						dialog.dismiss();
 						lat = location.getLatitude();
 						lng = location.getLongitude();
 						et.setText(lat + ", " + lng);
 						locationSuccess.setVisibility(View.VISIBLE);
-						weather.setVisibility(View.VISIBLE);
+						weatherBtn.setVisibility(View.VISIBLE);
 						showLocation = true;
 					}
 				} catch (Exception e) {
+					dialog.dismiss();
 					Log.i("FEEDHENRY",
 							"Error fetching weather: " + e.getMessage());
 				}
@@ -163,27 +213,24 @@ public class LocationFragment extends Fragment implements OnClickListener {
 		/*
 		 * TODO No error handling here for bad json data
 		 */
-
-		JSONObject obj = json.getJSONArray("data").getJSONObject(0);
-//		JSONObject obj = array.getJSONObject(0);
-
-		// get weather icon from returned URL
 		ll.setVisibility(View.VISIBLE);
-		iv = (ImageView) rootView.findViewById(R.id.weather_icon);
+		JSONObject obj = json.getJSONArray("data").getJSONObject(0);
+
 		String URL = obj.getString("icon");
 		GetImageTask task = new GetImageTask();
 		task.execute(new String[] { URL });
 
-		TextView tv = (TextView) rootView.findViewById(R.id.weather_date);
-		tv.setText(obj.getString("date"));
-		tv = (TextView) rootView.findViewById(R.id.weather_temp);
-		tv.setText(obj.getString("low") + " - " + obj.getString("high") + " ("
-				+ (char) 0x00B0 + "C)");
-		tv = (TextView) rootView.findViewById(R.id.weather_desc);
-		tv.setText(obj.getString("desc"));
+		mDate = obj.getString("date");
+		mTemp = obj.getString("low") + " - " + obj.getString("high") + " ("
+				+ (char) 0x00B0 + "C)";
+		mDesc = obj.getString("desc");
+
+		weatherDate.setText(mDate);
+		weatherTemp.setText(mTemp);
+		weatherDesc.setText(mDesc);
 	}
 
-	// Private Async task to fetch weather image
+	// Async task to fetch weather image
 	private class GetImageTask extends AsyncTask<String, Void, Bitmap> {
 		@Override
 		protected Bitmap doInBackground(String... urls) {
@@ -198,7 +245,8 @@ public class LocationFragment extends Fragment implements OnClickListener {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			Log.i("FEEDHENRY", "Bitmap result: " + result.toString());
-			iv.setImageBitmap(result);
+			weatherBitmap = result;
+			iv.setImageBitmap(weatherBitmap);
 		}
 
 		// Creates Bitmap from InputStream and returns it

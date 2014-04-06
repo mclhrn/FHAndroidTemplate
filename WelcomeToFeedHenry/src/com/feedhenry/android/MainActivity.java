@@ -1,16 +1,6 @@
 package com.feedhenry.android;
 
-import com.feedhenry.android.R;
-
 import java.util.ArrayList;
-
-import com.feedhenry.android.fragments.CallCloudFragment;
-import com.feedhenry.android.fragments.DataBrowserFragment;
-import com.feedhenry.android.fragments.HomeFragment;
-import com.feedhenry.android.fragments.LocationFragment;
-import com.feedhenry.android.fragments.PushNotificationsFragment;
-import com.feedhenry.android.slidingmenu.adapter.NavDrawerListAdapter;
-import com.feedhenry.android.slidingmenu.model.NavDrawerItem;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,7 +11,6 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.feedhenry.android.drawer.adapter.NavDrawerListAdapter;
+import com.feedhenry.android.drawer.model.NavDrawerItem;
+import com.feedhenry.android.fragments.CallCloudFragment;
+import com.feedhenry.android.fragments.DataBrowserFragment;
+import com.feedhenry.android.fragments.HomeFragment;
+import com.feedhenry.android.fragments.LocationFragment;
+import com.feedhenry.android.fragments.PushNotificationsFragment;
 
 public class MainActivity extends Activity implements
 		HomeFragment.OnOptionSelectedListener {
@@ -43,10 +40,11 @@ public class MainActivity extends Activity implements
 	// used to store app title
 	private CharSequence mTitle;
 
-	// slide menu items
+	// drawer menu items
 	private String[] navMenuTitles;
 	private TypedArray navMenuIcons;
 
+	// 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 
@@ -115,7 +113,7 @@ public class MainActivity extends Activity implements
 		// Recycle the typed array
 		navMenuIcons.recycle();
 
-		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+		mDrawerList.setOnItemClickListener(new DrawerClickListener());
 
 		// setting the nav drawer list adapter
 		adapter = new NavDrawerListAdapter(getApplicationContext(),
@@ -127,11 +125,9 @@ public class MainActivity extends Activity implements
 		getActionBar().setHomeButtonEnabled(true);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, // nav menu toggle icon
-				R.string.app_name, // nav drawer open - description for
-									// accessibility
-				R.string.app_name // nav drawer close - description for
-									// accessibility
+				R.drawable.ic_drawer, 	// nav menu toggle icon
+				R.string.app_name, 		// nav drawer open - description for accessibility
+				R.string.app_name 		// nav drawer close - description for accessibility
 		) {
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(mTitle);
@@ -149,9 +145,9 @@ public class MainActivity extends Activity implements
 	}
 
 	/**
-	 * Slide menu item click listener
+	 * Drawer item click listener
 	 * */
-	private class SlideMenuClickListener implements ListView.OnItemClickListener {
+	private class DrawerClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {

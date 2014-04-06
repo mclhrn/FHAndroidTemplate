@@ -1,3 +1,4 @@
+
 package com.feedhenry.android.fragments;
 
 import android.app.Fragment;
@@ -13,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.feedhenry.android.R;
-import com.feedhenry.android.R.id;
-import com.feedhenry.android.R.layout;
 import com.feedhenry.android.server.FHAgent;
 import com.feedhenry.android.utilities.MyToast;
 import com.feedhenry.sdk.FHActCallback;
@@ -52,6 +51,8 @@ public class CallCloudFragment extends Fragment implements OnClickListener {
 	
 	@Override
 	public void onClick(View view) {
+		
+		// Use FH Agent to call the FH Cloud
 		FHAgent fhAgent = new FHAgent();
         fhAgent.cloudCall(new FHActCallback() {
             @Override

@@ -18,12 +18,13 @@ public class MyLocation {
     boolean network_enabled=false;
 
     public boolean getLocation(Context context, LocationResult result) {
-        //I use LocationResult callback class to pass location value from MyLocation to user code.
+        
+    	// LocationResult callback class to pass location value from MyLocation to location fragment.
         locationResult=result;
         if(lm==null)
             lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-        //exceptions will be thrown if provider is not permitted.
+        // Exceptions will be thrown if provider is not permitted.
         try{
             gps_enabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch(Exception ex){
@@ -35,7 +36,7 @@ public class MyLocation {
             Log.i("FEEDHENRY", "Failed in NETWORK");
         }
 
-        //don't start listeners if no provider is enabled
+        // Don't start listeners if no provider is enabled
         if(!gps_enabled && !network_enabled)
             return false;
 
@@ -56,7 +57,7 @@ public class MyLocation {
             lm.removeUpdates(locationListenerNetwork);
         }
         public void onProviderDisabled(String provider) {
-            Log.i("DAA", "Diasabled");
+            Log.i("FEEDHENRY", "Diasabled");
         }
         public void onProviderEnabled(String provider) {}
         public void onStatusChanged(String provider, int status, Bundle extras) {}
