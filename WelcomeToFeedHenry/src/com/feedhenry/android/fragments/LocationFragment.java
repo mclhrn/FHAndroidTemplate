@@ -31,6 +31,7 @@ import com.feedhenry.android.R;
 import com.feedhenry.android.server.FHAgent;
 import com.feedhenry.android.utilities.MyLocation;
 import com.feedhenry.android.utilities.MyLocation.LocationResult;
+import com.feedhenry.android.utilities.MyToast;
 import com.feedhenry.sdk.FHActCallback;
 import com.feedhenry.sdk.FHResponse;
 
@@ -138,22 +139,27 @@ public class LocationFragment extends Fragment implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.location_btn:
+			// Display loading dialog
+			if (dialog == null) {
+				setDialog();
+			} else {
+				dialog.show();
+			}
 			getLocation();
 			break;
 		case R.id.weather_btn:
+			// Display loading dialog
+			if (dialog == null) {
+				setDialog();
+			} else {
+				dialog.show();
+			}
 			getWeather();
 			break;
 		}
 	}
 
 	private void getWeather() {
-
-		// Display loading dialog
-		if (dialog == null) {
-			setDialog();
-		} else {
-			dialog.show();
-		}
 
 		// Weather FH call
 		FHAgent fhAgent = new FHAgent();
@@ -162,8 +168,7 @@ public class LocationFragment extends Fragment implements OnClickListener {
 			public void success(FHResponse fhResponse) {
 				dialog.dismiss();
 				parseWeather(fhResponse.getJson());
-				Log.i("FEEDHENRY",
-						"Weather Success!" + fhResponse.getRawResponse());
+				Log.i("FEEDHENRY", "Weather Success!" + fhResponse.getRawResponse());
 			}
 
 			@Override
@@ -176,38 +181,44 @@ public class LocationFragment extends Fragment implements OnClickListener {
 
 	private void getLocation() {
 
-		// Display loading dialog
-		if (dialog == null) {
-			setDialog();
-		} else {
-			dialog.show();
-		}
-		
 		LocationResult locationResult = new LocationResult() {
 			@Override
 			public void gotLocation(Location location) {
 				try {
 					if (null != location) {
+						Log.i("FEEDHENRY", "Location value is: " + location.toString());
 						dialog.dismiss();
 						lat = location.getLatitude();
 						lng = location.getLongitude();
-						et.setText(lat + ", " + lng);
-						locationSuccess.setVisibility(View.VISIBLE);
-						weatherBtn.setVisibility(View.VISIBLE);
-						showLocation = true;
+						getActivity().runOnUiThread(new Runnable() {
+						     @Override
+						     public void run() {
+						    	 upDateWeather(lat, lng);
+						     }
+						});
+					} else {
+						MyToast.showToast("Problem getting Location");
 					}
 				} catch (Exception e) {
 					dialog.dismiss();
 					Log.i("FEEDHENRY",
 							"Error fetching weather: " + e.getMessage());
 				}
-
 			}
 		};
 		MyLocation myLocation = new MyLocation();
 		myLocation.getLocation(getActivity(), locationResult);
 	}
+	
+	
+	private void upDateWeather(double latitude, double longitude) {
+		et.setText(latitude + ", " + longitude);
+		locationSuccess.setVisibility(View.VISIBLE);
+		weatherBtn.setVisibility(View.VISIBLE);
+		showLocation = true;
+	}
 
+	
 	private void parseWeather(JSONObject json) {
 
 		/*

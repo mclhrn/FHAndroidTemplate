@@ -49,7 +49,7 @@ public class MyApplication extends Application {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						MyToast.showToast("Connected to FH server");
+						MyToast.showToast("Connected to FeedHenry");
 					}
 				});
 			}

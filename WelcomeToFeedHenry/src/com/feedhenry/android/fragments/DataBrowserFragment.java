@@ -2,6 +2,7 @@
 package com.feedhenry.android.fragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class DataBrowserFragment extends Fragment implements OnClickListener {
 	private View rootView;
 	private EditText et;
 	private TextView success, fail;
+	private ProgressDialog dialog;
 
 	
 	@Override
@@ -55,34 +57,50 @@ public class DataBrowserFragment extends Fragment implements OnClickListener {
 		fail = (TextView) rootView.findViewById(R.id.data_browser_fail);
 		fail.setVisibility(View.GONE);
 	}
+	
+	
+	private void setDialog() {
+		dialog = new ProgressDialog(this.getActivity());
+		dialog.setIndeterminate(true);
+		dialog.setCancelable(false);
+		dialog.setMessage("Loading...");
+		dialog.show();
+	}
 
 	
 	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.data_browser_btn) {
 			if (validateFields()) {
-				
-				// Use FH Agent to store value in cloud DB
-				FHAgent fhAgent = new FHAgent();
-		        fhAgent.dataBrowser(et.getText().toString(), new FHActCallback() {
-		            @Override
-		            public void success(FHResponse fhResponse) {
-		        		success.setVisibility(View.VISIBLE);
-		        		Log.i("FEEDHENRY", "Data Browser Success!");
-		            }
-
-		            @Override
-		            public void fail(FHResponse fhResponse) {
-		        		fail.setVisibility(View.VISIBLE);
-		        		Log.i("FEEDHENRY", "Data Browser Failed!");
-		            }
-		        });
-		        
-		        // Utility method to hide the keyboard
-		        KeyboardToggle.hideTheKeyboard(getActivity(), et);
+				setDialog();
+				dataBrowser();
 			}
 		}
 	}
+
+	
+	private void dataBrowser() {
+		// Use FH Agent to store value in cloud DB
+		FHAgent fhAgent = new FHAgent();
+        fhAgent.dataBrowser(et.getText().toString(), new FHActCallback() {
+            @Override
+            public void success(FHResponse fhResponse) {
+        		success.setVisibility(View.VISIBLE);
+        		dialog.dismiss();
+        		Log.i("FEEDHENRY", "Data Browser Success!");
+            }
+
+            @Override
+            public void fail(FHResponse fhResponse) {
+        		fail.setVisibility(View.VISIBLE);
+        		dialog.dismiss();
+        		Log.i("FEEDHENRY", "Data Browser Failed!");
+            }
+        });
+        // Utility method to hide the keyboard
+        KeyboardToggle.hideTheKeyboard(getActivity(), et);
+	}
+
 
 	// Set Edit Text validation rules
 	private boolean validateFields() {

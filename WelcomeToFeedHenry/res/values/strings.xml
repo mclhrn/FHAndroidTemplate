@@ -6,7 +6,7 @@
 
     <!-- Nav Drawer Menu Items -->
     <!-- With fontawesome Unicodes for icons -->
-    <!-- The &#160; is unicode a white space character -->
+    <!-- The &#160; is a unicode white space character -->
     <string-array name="nav_drawer_items">
         <item>&#xf015;&#160;&#160;&#160;Home</item>
         <item>&#xf0c2;&#160;&#160;&#160;Call Cloud</item>
@@ -23,7 +23,6 @@
     <string name="home">Home</string>
     <string name="call_cloud">Call Cloud</string>
     <string name="location">Location</string>
-    <string name="stats">FeedHenry Stats</string>
     <string name="data_browser">Data Browser</string>
     <string name="push_notifications">Push Notifications</string>
     <string name="home_title">Welcome to\nFeedHenry</string>
@@ -64,4 +63,8 @@
     <string name="cloud_integrations_title">Cloud Integrations</string>
     <string name="cloud_integrations_body_text">You can easily integrate with all of your existing back-end systems using Cloud Plugins. Check out the App Studio to see how to connect to Databases, Messaging, Analytics, SaaS, eCommerce, Logging, Data Storage, Testing Tools and File Storage. A few examples including\:</string>
 
+    <string name="stats_title">Stats</string>
+    <string name="stats_body_text">In addition to all of our app install/usage analytics, you can also instrument your cloud code to see exactly how it\'s performing. Go to the stats section of the Studio and see if your device has been detected</string>
+    
+    
 </resources>
