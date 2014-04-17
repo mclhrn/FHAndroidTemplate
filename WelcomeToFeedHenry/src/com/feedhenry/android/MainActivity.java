@@ -7,8 +7,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -57,6 +55,7 @@ public class MainActivity extends Activity implements
 		setContentView(R.layout.activity_main);
 		setUpDrawer();
 		if (savedInstanceState == null) {
+			
 			// on first time display view for first nav item
 			displayView(0);
 			
@@ -90,7 +89,7 @@ public class MainActivity extends Activity implements
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
 		navDrawerItems = new ArrayList<NavDrawerItem>();
-
+		
 		// adding nav drawer items to array
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
@@ -289,6 +288,8 @@ public class MainActivity extends Activity implements
 			fragmentManager.beginTransaction()
 					.replace(R.id.frame_container, fragment)
 					.addToBackStack(null).commit();
+			mDrawerList.setItemChecked(selection, true);
+			mDrawerList.setSelection(selection);
 		} else {
 			// error in creating fragment
 			Log.e("MainActivity", "Error in creating fragment");

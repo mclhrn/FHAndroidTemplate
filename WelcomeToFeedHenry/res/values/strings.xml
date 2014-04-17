@@ -10,7 +10,7 @@
     <string-array name="nav_drawer_items">
         <item>&#xf015;&#160;&#160;&#160;Home</item>
         <item>&#xf0c2;&#160;&#160;&#160;Call Cloud</item>
-        <item>&#xf0ed;&#160;&#160;&#160;Push Notifications</item>
+        <item>&#xf0a6;&#160;&#160;&#160;Push Notifications</item>
         <item>&#xf185;&#160;&#160;&#160;Location Example</item>
         <item>&#xf0ce;&#160;&#160;&#160;Data Browser</item>
         <item>&#xf05a;&#160;&#160;&#160;Native App Info</item>
@@ -40,7 +40,7 @@
     <string name="cloud_logo">&#xf0c2;</string>
     <string name="data_browser_logo">&#xf0ce;</string>
     <string name="example_logo">&#xf185;</string>
-    <string name="push_logo">&#xf0ed;</string>
+    <string name="push_logo">&#xf0a6;</string>
     
     <string name="cloud_action">Cloud Action</string>
     <string name="cloud_action_body_text">This client app is now connected to its matching Node.js cloud code on FeedHenry. Tap the button to request a response from the cloud.</string>
@@ -66,5 +66,13 @@
     <string name="stats_title">Stats</string>
     <string name="stats_body_text">In addition to all of our app install/usage analytics, you can also instrument your cloud code to see exactly how it\'s performing. Go to the stats section of the Studio and see if your device has been detected</string>
     
+    <string name="app_info_device_title">About this Device</string>
+    <string name="app_info_manufacturer">Manufacturer:</string>
+    <string name="app_info_model">Model:</string>
+    <string name="app_info_product">Product:</string>
+    <string name="app_info_serial">Serial:</string>
+    <string name="app_info_cpu">CPU Type:</string>
+    <string name="app_info_host">Host:</string>
+    <string name="app_info_cloud_title">The Cloud Host</string>
     
 </resources>
