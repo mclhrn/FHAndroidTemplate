@@ -7,4 +7,4 @@ A native template for rapid development using the FeedHenry platform. The templa
 
 The FeedHenry SDK is integrated and used to perform cloud calls, store data in the cloud using Mongo DB and performs an example using a third party API to get location based weather data. Push notifications will be in a later release.
 
-Supports Android 3+ (API 13)
+Supports Android 4+ (API 14)
