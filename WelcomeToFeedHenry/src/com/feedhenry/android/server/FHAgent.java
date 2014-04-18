@@ -35,6 +35,10 @@ public class FHAgent {
         this.call("getWeather", param, fhActCallback);
     }
     
+    public void getFHVars(FHActCallback fhActCallback){
+        JSONObject param = new JSONObject("{}");
+        this.call("fhvars", param, fhActCallback);
+    }
         
     public static boolean isOnline(){
         ConnectivityManager cm = (ConnectivityManager) MyApplication.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);

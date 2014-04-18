@@ -10,5 +10,7 @@
     <color name="home_buttons_background">#1c54b8</color>
     <color name="rect_button_bg">#1b53c0</color>
     <color name="table_bg">#f4f4f4</color>
+    <color name="main_text_color">#777777</color>
+    <color name="light_text_color">#999999</color>
     
 </resources>

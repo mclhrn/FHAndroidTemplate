@@ -8,51 +8,36 @@
     android:paddingTop="10dp" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/data_browser"
-        android:textSize="24sp" />
+        style="@style/header_1"
+        android:text="@string/data_browser" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        style="@style/main_body_text"
         android:text="@string/data_browser_body_text" />
 
     <EditText
         android:id="@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/main_body_text"
         android:layout_marginTop="20dp"
-        android:ems="10" >
-
-        <requestFocus />
+        android:ems="10" ><requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/data_browser_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rect_button"
-        android:text="@string/data_browser_btn"
-        android:textColor="@color/list_item_title" />
+        style="@style/action_button"
+        android:text="@string/data_browser_btn" />
 
     <TextView
         android:id="@+id/data_browser_success"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/main_body_text"
         android:layout_marginTop="20dp"
         android:background="@drawable/cloud_success_bg"
         android:padding="10dp"
         android:text="@string/data_browser_success" />
-    
+
     <TextView
         android:id="@+id/data_browser_fail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/main_body_text"
         android:layout_marginTop="20dp"
         android:background="@drawable/cloud_fail_bg"
         android:padding="10dp"

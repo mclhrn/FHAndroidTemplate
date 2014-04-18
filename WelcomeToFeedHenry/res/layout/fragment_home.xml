@@ -35,7 +35,6 @@
                 android:text="@string/home_subtitle"
                 android:textColor="@color/list_item_title"
                 android:textSize="15sp" />
-
         </LinearLayout>
 
         <ImageView
@@ -43,7 +42,6 @@
             android:layout_height="25dp"
             android:layout_gravity="right"
             android:src="@drawable/ic_launcher" />
-        
     </FrameLayout>
 
     <TableLayout
@@ -63,15 +61,10 @@
 
                 <Button
                     android:id="@+id/cloud_btn"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/round_button"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/cloud_logo"
-                    android:textSize="26sp"
-                    android:textColor="@color/list_item_title" />
+                    style="@style/home_button"
+                    android:text="@string/cloud_logo" />
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,27 +73,21 @@
 
                 <Button
                     android:id="@+id/push_btn"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/round_button"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/push_logo"
-                    android:textSize="26sp"
-                    android:textColor="@color/list_item_title" />
+                    style="@style/home_button"
+                    android:text="@string/push_logo" />
             </RelativeLayout>
-
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,6 +96,7 @@
                     android:text="@string/cloud_action_title"
                     android:textColor="@color/counter_text_bg"
                     android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,11 +107,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,6 +120,7 @@
                     android:text="@string/push_notification_title"
                     android:textColor="@color/counter_text_bg"
                     android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,14 +129,13 @@
                     android:textColor="@color/counter_text_bg"
                     android:textSize="12sp" />
             </LinearLayout>
-            	
         </TableRow>
-        
+
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="24dp" >
-            
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -156,13 +144,8 @@
 
                 <Button
                     android:id="@+id/example_btn"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/round_button"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/example_logo"
-                    android:textSize="26sp"
-                    android:textColor="@color/list_item_title" />
+                    style="@style/home_button"
+                    android:text="@string/example_logo" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -173,27 +156,21 @@
 
                 <Button
                     android:id="@+id/data_browser_btn"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/round_button"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/data_browser_logo"
-                    android:textSize="26sp"
-                    android:textColor="@color/list_item_title" />
+                    style="@style/home_button"
+                    android:text="@string/data_browser_logo" />
             </RelativeLayout>
-
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -202,6 +179,7 @@
                     android:text="@string/example_title"
                     android:textColor="@color/counter_text_bg"
                     android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,13 +188,13 @@
                     android:textColor="@color/counter_text_bg"
                     android:textSize="12sp" />
             </LinearLayout>
-            
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,6 +203,7 @@
                     android:text="@string/data_browser_title"
                     android:textColor="@color/counter_text_bg"
                     android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -233,8 +212,7 @@
                     android:textColor="@color/counter_text_bg"
                     android:textSize="12sp" />
             </LinearLayout>
-
         </TableRow>
-        
     </TableLayout>
-</LinearLayout>
+
+</LinearLayout>

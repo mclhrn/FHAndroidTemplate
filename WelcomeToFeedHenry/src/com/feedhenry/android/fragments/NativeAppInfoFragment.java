@@ -1,19 +1,27 @@
 package com.feedhenry.android.fragments;
 
+import org.json.fh.JSONObject;
+
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.feedhenry.android.R;
+import com.feedhenry.android.server.FHAgent;
+import com.feedhenry.android.utilities.MyToast;
+import com.feedhenry.sdk.FHActCallback;
+import com.feedhenry.sdk.FHResponse;
 
 public class NativeAppInfoFragment extends Fragment {
 	
 	private View rootView;
 	private String manufacturer, model, product, serial, cpu, host, release, codename;
+	private String fhVarAppName, fhVarAppDomain, fhVarAppEnv, fhVarAppPort;
 	private int sdkNum;
 
 	@Override
@@ -21,11 +29,48 @@ public class NativeAppInfoFragment extends Fragment {
             Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_app_info, container, false);
         getVars();
-        initUI(); 
+        initUI();
+        getCloudInfo();
         return rootView;
     }
 
 	
+	private void getCloudInfo() {
+		// Use FH Agent to call the FH Vars
+				FHAgent fhAgent = new FHAgent();
+				fhAgent.getFHVars(new FHActCallback() {
+					@Override
+					public void success(FHResponse fhResponse) {
+						parseInfo(fhResponse.getJson());
+						Log.i("FEEDHENRY", "FH Vars Call Success! "
+								+ fhResponse.getJson());
+					}
+					@Override
+					public void fail(FHResponse fhResponse) {
+						
+						MyToast.showToast("Could not reach cloud");
+						Log.i("FEEDHENRY", fhResponse.getRawResponse());
+						Log.i("FEEDHENRY", "FH Vars Call Failed!");
+					}
+				});
+	}
+	
+	
+	private void parseInfo(JSONObject json) {
+		
+		TextView tv8 = (TextView) rootView.findViewById(R.id.textView8);
+        TextView tv9 = (TextView) rootView.findViewById(R.id.textView9);
+        TextView tv10 = (TextView) rootView.findViewById(R.id.textView10);
+        TextView tv11 = (TextView) rootView.findViewById(R.id.textView11);
+        
+        // This assumes that every cloud app will have these Environment Vars
+        tv8.setText(json.getString("appName"));
+        tv9.setText(json.getString("domain"));
+        tv10.setText(json.getString("env"));
+		tv11.setText(json.getString("port"));
+	}
+
+
 	private void getVars() {
 		manufacturer = Build.MANUFACTURER;
         model = Build.MODEL;

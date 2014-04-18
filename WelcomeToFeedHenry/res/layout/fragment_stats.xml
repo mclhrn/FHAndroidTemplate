@@ -8,17 +8,11 @@
     android:paddingTop="10dp" >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/stats_title"
-        android:textSize="24sp" />
+        style="@style/header_1"
+        android:text="@string/stats_title" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        style="@style/main_body_text"
         android:text="@string/stats_body_text" />
 
 </LinearLayout>

@@ -74,5 +74,9 @@
     <string name="app_info_cpu">CPU Type:</string>
     <string name="app_info_host">Host:</string>
     <string name="app_info_cloud_title">The Cloud Host</string>
+    <string name="app_info_app_name">App Name:</string>
+    <string name="app_info_app_domain">Host Domain:</string>
+    <string name="app_info_app_env">Host Environment:</string>
+    <string name="app_info_app_port">Host Port:</string>
     
 </resources>
